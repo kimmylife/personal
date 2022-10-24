@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- 제이쿼리는 파일로 받아다가 임포트 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
+        integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"
+        integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="/newTodoList.js"></script>
+    <link rel="stylesheet" href="/todoList.css">
+    <!-- 앞에 . 붙여서 상대경로로 -->
+</head>
+<!-- 로우 아이디값은 마지막 행에 +1을 주면 중간에 삭제되도 끝에 있는 애한테 추가되서 생성 -->
+
+<body>
+    <h2>Todo List</h2>
+    <div class="getDate">
+        <span>날짜</span>
+        <input type="text" class="getDateBox datepicker" id="getDateBox" value="">
+        <button type="button" class="getDateBtn" value="" onclick="searchDate()">검색</button>
+    </div>
+
+    <div class="setTodoList">
+        <span>내용</span>
+        <input type="text" class="setTodoText" id="setTodoText" value="">
+        <button type="submit" class="setTodoTextBtn" value="" onclick="addList()">추가</button>
+    </div>
+
+    <div class="btnBox">
+        <button type="button" class="setListEvery btn-example" value="setListEvery" onclick="openPopMany('일괄')">일괄수정</button>
+
+
+        <button type="button" class="deleteList" id="deleteList" onclick="delSelected()">선택삭제</button>
+        <button type="button" class="deleteListEvery" id="deleteListEvery" onclick="reset()">초기화</button>
+    </div>
+
+
+
+
+    <table style=" border: 1px solid #000; margin-bottom: 20px;" id="table">
+        <thead>
+            <th class="checkBox"><input type="checkbox" onclick="selectAll(this)"></th>
+            <th style="width: 100px;">날짜</th>
+            <th style="width: 150px;">내용</th>
+            <th style="width: 100px;">단건삭제</th>
+            <th style="width: 100px;">단건수정</th>
+        </thead>
+        <tbody style="text-align: center;" id="listBody">
+            <!-- <tr name="trContent" rowId="1" , date="10/11/2022" , content="Dummy Text" , complete="none" id="tableRow">
+                <td class="checkBox"><input type="checkbox" name="checkbox" value="1"></td>
+                <td>10/11/2022</td>
+                <td>Dummy Text</td>
+                <td><button type="button" class="deleteOneList" onclick="delOne()">삭제</button></td>
+                <td><button type="button" class="editOneList" onclick="openPopOne('단건')">수정</button>
+
+                </td>
+            </tr> -->
+        </tbody>
+    </table>
+
+    <div class="jsonDataBox">
+        <button type="button" class="convertDataFormat" value="convertDataFormat" onclick="callJson()">항목 JSON
+            반환</button>
+        <button type="button" class="callAjaxList" value="callAjaxList" onclick="getJsonData()">항목 불러오기</button>
+        <!-- <button type="button" class="callAjaxList" value="callAjaxList" onclick="jsonData()">항목 불러오기</button> -->
+    </div>
+
+
+
+    <!-- 수정 팝업 시작 -->
+    <div class="layer2" id="layerWarp2" style="display: none;">
+        <div class="bg"></div>
+        <div id="layer2" class="pop-layer2">
+            <form name="writeForm" id="writeForm">
+                <input type="hidden" name="newRow" id="newRowId" value="">
+                    <div class="pop-container2">
+                        <div style="text-align:left; height:30px; width:100%;">
+                            <div class="closeBtn">
+                                <a href="javascript:closePopOne();">
+                                    <img src="/ic_close.svg"></a>
+                            </div>
+                        </div>
+                        <div style="font-size: 20px;" class="nameText"><strong id="layerTitle">제목</strong>
+                        </div>
+                        <div class="outerBox">
+                            <span>변환 전 </span>
+                            <input type="text" class="BeforeTransOne" id="BeforeTransOne" name="BeforeTransOne" value="">
+                        </div>
+                        <div class="outerBox">
+                            <span>변환 후 </span>
+                            <input type="text" class="AfterTransOne" id="AfterTransOne" name="AfterTransOne" value="">
+                        </div>
+                        <div class="btnArea" id="btnArea">
+                            <button type="button" class="editConfirm" value="editConfirm" onclick="updateOne()">수정</button>
+                    </div>
+            </form>
+        </div>
+        </div>
+    </div>
+    <!--수정 팝업 끝 -->
+</body>
+
+</html>
